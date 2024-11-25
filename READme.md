@@ -2,7 +2,6 @@ people
 ================
 
 ![](https://img.shields.io/badge/lifecycle-experimental-brightgreen.svg)
-
 This experimental package will extract common population datasets from
 the Decennial Census (Demographic and Housing Characteristics File) as
 well as CA Department of Finance. While there are many interesting data

@@ -1,0 +1,12 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
+^READme\.Rmd$
+^READme\.md$
+^codecov\.yml$
+^dev\.R$
+^NEWS\.md$

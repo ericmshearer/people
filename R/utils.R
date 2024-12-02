@@ -35,8 +35,13 @@ extract_geoid <- function(url){
   return(out)
 }
 
-drop_empties <- function(df){
-  df[, vapply(df, function(x) !all(is.na(x)), logical(1))]
+# drop_empties <- function(df){
+#   df[, vapply(df, function(x) !all(is.na(x)), logical(1))]
+# }
+
+drop_empty_columns <- function(df){
+  df <- df[,colSums(is.na(df)) < nrow(df)]
+  return(df)
 }
 
 row_to_colheaders <- function(data, row_num = 1, check_dups = FALSE){
@@ -78,6 +83,21 @@ estimate_to_numeric <- function(df, exclude_cols = NULL){
   return(df)
 }
 
+recode_annotations <- function(list_df){
+  list_df %>%
+    replace(. %in% c("*****","-555555555"), 0) %>%
+    replace(. %in% c("-888888888","-999999999"), NA)
+}
+
+# drop_columns_junk <- function(list, contains){
+#   list <- lapply(list, function(df){
+#     cols_to_drop <- sapply(df, function(col) any(col %in% contains))
+#     df <- df[,!cols_to_drop, drop = FALSE]
+#     return(df)
+#   })
+#   return(list)
+# }
+
 return_as_df <- function(list){
   list <- lapply(list, estimate_to_numeric, exclude_cols = c("state","county","school district (unified)","tract","county (or part)","zip code tabulation area","zip code tabulation area (or part)","place"))
   out <- as.data.frame(do.call(rbind, list))
@@ -85,8 +105,17 @@ return_as_df <- function(list){
   return(out)
 }
 
-build_url <- function(year = 2020, geography, geo_id, var, key, partial = FALSE, fips, state){
-  base <- paste("https://api.census.gov/data", as.character(year), "dec", "dhc", sep = "/")
+build_url <- function(year = 2020, geography, geo_id, var, key, partial = FALSE, fips, state, dataset){
+  # if(year == 2020){
+  #   base <- paste("https://api.census.gov/data", as.character(year), api, dataset, sep = "/")
+  # } else if (year == 2010){
+  #   base <- paste("https://api.census.gov/data", as.character(year), "dec", "sf1", sep = "/")
+  # } else {
+  #   stop("Year not availale.")
+  # }
+  
+  base <- base_api(year = year, dataset = dataset)
+  
   vars_to_get <- paste0(var, ",NAME")
   
   geography <- trimws(tolower(geography))
@@ -113,5 +142,22 @@ build_url <- function(year = 2020, geography, geo_id, var, key, partial = FALSE,
     url <- sprintf("%s?get=%s&for=school district (unified):*&in=state:%s&key=%s", base, vars_to_get, state, key)
   }
   
+  return(url)
+}
+
+base_api <- function(year = 2020, dataset = "dec/dhc"){
+  base <- "https://api.census.gov/data"
+  
+  df <- jsonlite::fromJSON(sprintf("https://api.census.gov/data/%s/", year)) %>%
+    as.data.frame()
+  options <- sort(sapply(df$dataset.c_dataset, paste0, collapse = "/"))
+  
+  dataset <- options[options == dataset]
+  
+  if(length(dataset) == 0){
+    cli::cli_abort("Dataset not available.")
+  } else {
+    url <- paste(base, year, dataset, sep = "/")
+  }
   return(url)
 }

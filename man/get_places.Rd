@@ -4,10 +4,12 @@
 \alias{get_places}
 \title{Find CA Places Codes}
 \usage{
-get_places(county = "Orange")
+get_places(county = "Orange", state = "CA")
 }
 \arguments{
 \item{county}{Character, title casing.}
+
+\item{state}{Character, length of two capitalized.}
 }
 \value{
 Character, place codes.

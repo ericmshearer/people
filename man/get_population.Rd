@@ -12,7 +12,8 @@ get_population(
   key,
   partial = FALSE,
   fips,
-  state
+  state = "06",
+  dataset = "dec/dhc"
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ get_population(
 \item{fips}{Character, length of 3.}
 
 \item{state}{Character, length of 2.}
+
+\item{dataset}{Character, api/table.}
 }
 \value{
 Data.frame with population data from decennial census.

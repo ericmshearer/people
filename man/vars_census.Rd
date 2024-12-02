@@ -4,10 +4,12 @@
 \alias{vars_census}
 \title{Census Variables}
 \usage{
-vars_census(year = 2020)
+vars_census(year = 2020, dataset = "dec/dhc")
 }
 \arguments{
 \item{year}{Character or integer, four characters in length.}
+
+\item{dataset}{Dataset of interest. Example: dec/dhc.}
 }
 \value{
 Data.frame, 3 columns.

@@ -1,12 +1,17 @@
 #' Find CA Places Codes
 #'
 #' @param county Character, title casing.
+#' @param state Character, length of two capitalized.
 #'
 #' @return Character, place codes.
 #' @importFrom utils read.delim
 #' @export
-get_places <- function(county = "Orange"){
-  codes <- read.delim("https://www2.census.gov/geo/docs/reference/codes2020/place/st06_ca_place2020.txt", sep = "|", colClasses = "character")
+get_places <- function(county = "Orange", state = "CA"){
+  profile <- people::get_profile(county, state)
+  
+  state <- tolower(state)
+  
+  codes <- read.delim(sprintf("https://www2.census.gov/geo/docs/reference/codes2020/place/st%s_%s_place2020.txt", profile$STATEFP, state), sep = "|", colClasses = "character")
   codes <- codes[codes$COUNTIES == paste(county, "County"),]
   codes <- codes[["PLACEFP"]]
   return(codes)
@@ -38,28 +43,39 @@ get_profile <- function(county, state = "CA"){
 #' Census Variables
 #'
 #' @param year Character or integer, four characters in length.
+#' @param dataset Dataset of interest. Example: dec/dhc.
 #'
 #' @return Data.frame, 3 columns.
 #' @importFrom jsonlite fromJSON
 #' @export
-vars_census <- function(year = 2020){
+vars_census <- function(year = 2020, dataset = "dec/dhc"){
   
   if(!inherits(year, "character")){
     year <- as.character(year)
   }
   
-  var_url <- list(
-    `2010` = "/dec/sf1/variables",
-    `2020` = "/dec/dhc/variables"
-  )
-  
-  base <- "https://api.census.gov/data/"
-  
-  url <- paste0(base, as.character(year), var_url[year])
+  url <- base_api(year = year, dataset = dataset)
+  url <- paste(url, "variables", sep = "/")
   
   df <- jsonlite::fromJSON(url) %>%
     as.data.frame() |>
     row_to_colheaders()
+  return(df)
+}
+
+#' View Census Datasets
+#'
+#' @param year Character or numeric, year of interest.
+#'
+#' @return Data frame with three columns.
+#' @export
+census_datasets <- function(year){
+  df <- jsonlite::fromJSON(sprintf("https://api.census.gov/data/%s/", year)) %>%
+    as.data.frame()
+  options <- sort(sapply(df$dataset.c_dataset, paste0, collapse = "/"))
+  df <- df[,c("dataset.title","dataset.description")]
+  df <- cbind(df, options)
+  colnames(df) <- c("Title","Description","dataset")
   return(df)
 }
 
@@ -73,10 +89,11 @@ vars_census <- function(year = 2020){
 #' @param partial Logical, only applicable to zip codes.
 #' @param fips Character, length of 3.
 #' @param state Character, length of 2.
+#' @param dataset Character, api/table.
 #'
 #' @return Data.frame with population data from decennial census.
 #' @export
-get_population <- function(year = 2020, geography, geo_id, var, key, partial = FALSE, fips, state){
+get_population <- function(year = 2020, geography, geo_id, var, key, partial = FALSE, fips, state = "06", dataset = "dec/dhc"){
   
   if(missing(geo_id) && geography %in% c("county","school district")){
     geo_id <- "*"
@@ -84,21 +101,15 @@ get_population <- function(year = 2020, geography, geo_id, var, key, partial = F
   
   cli::cli_alert("Preparing to fetch Census data...")
   
-  urls <- sapply(geo_id, function(x) {build_url(year = year, geography = geography, geo_id = x, var = var, partial = partial, fips = fips, state = state, key = key)}, USE.NAMES = FALSE)
+  urls <- sapply(geo_id, function(x) {build_url(year = year, geography = geography, geo_id = x, var = var, partial = partial, fips = fips, state = state, key = key, dataset = dataset)}, USE.NAMES = FALSE)
   
   urls <- sapply(urls, function(x) gsub("\\s", "%20", x), USE.NAMES = FALSE)
-  
-  # original <- purrr::map(urls, httr::GET)
-  
-  # original <- purrr::map(urls, httr::GET) %>%
-  #   drop_failed_calls() %>%
-  #   lapply(json_to_df, dups = TRUE) %>%
-  #   purrr::map_dfr(drop_empties)
   
   original <- lapply(urls, httr::GET) %>%
     drop_failed_calls() %>%
     lapply(json_to_df, dups = TRUE) %>%
-    lapply(drop_empties) %>%
+    lapply(recode_annotations) %>%
+    lapply(drop_empty_columns) %>%
     return_as_df()
   
   if(geography == "school district" & !missing(geo_id)){
@@ -117,6 +128,7 @@ get_population <- function(year = 2020, geography, geo_id, var, key, partial = F
 #' @export
 #' @importFrom cli cli_alert
 #' @importFrom cli cli_alert_success
+#' @importFrom cli cli_abort
 #' @importFrom utils read.csv
 #' @importFrom utils download.file
 #' @importFrom utils unzip
@@ -131,7 +143,7 @@ get_dof <- function(fips, dir){
   }
   
   if(!dir.exists(dir)){
-    stop("Directory does not exist.")
+    cli::cli_abort("Directory does not exist.")
   }
   
   tf = tempfile(tmpdir = dir, fileext = ".zip")
@@ -143,7 +155,7 @@ get_dof <- function(fips, dir){
   if(file.exists(file.path(dir, file_name))){
     cli::cli_alert_success("Download successful. File now importing...")
   } else {
-    stop("Error in file download.")
+    cli::cli_abort("Error in file download.")
   }
   
   data <- utils::read.csv(file.path(dir, file_name), na.strings = "", colClasses = "character")

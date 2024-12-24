@@ -48,7 +48,7 @@ get_profile <- function(county, state = "CA"){
 #' @return Data.frame, 3 columns.
 #' @importFrom jsonlite fromJSON
 #' @export
-vars_census <- function(year = 2020, dataset = "dec/dhc"){
+census_vars <- function(year = 2020, dataset = "dec/dhc"){
   
   if(!inherits(year, "character")){
     year <- as.character(year)

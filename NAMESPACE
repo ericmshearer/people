@@ -2,12 +2,12 @@
 
 export("%>%")
 export(census_datasets)
+export(census_vars)
 export(get_dof)
 export(get_places)
 export(get_population)
 export(get_profile)
 export(parse_place)
-export(vars_census)
 importFrom(cli,cli_abort)
 importFrom(cli,cli_alert)
 importFrom(cli,cli_alert_success)

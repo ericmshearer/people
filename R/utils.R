@@ -13,6 +13,30 @@
 #' @return The result of calling `rhs(lhs)`
 NULL
 
+vars_pivot <- function(df){
+  search <- grepl("[[:digit:]][[:alpha:]]$|[[:digit:]][[:alpha:]][[:alpha:]]$", colnames(df))
+  position <- which(search, colnames(df))
+  out <- colnames(df)[position]
+}
+
+estimate_type <- function(x){
+  char_length <- nchar(x)
+  type <- tolower(substr(x, char_length, char_length))
+  old <- c("e","n","m","a")
+  new <- c("estimate","estimate","moe","moe_adjust")
+  out <- new[match(type, old)]
+  return(out)
+}
+
+pivot_census <- function(df){
+  find_vars <- vars_pivot(df)
+  df <- tidyr::pivot_longer(df, !c(names(df)[!names(df) %in% find_vars]), names_to = "variable", values_to = "value")
+  df$type <- estimate_type(df$variable)
+  df$variable <- gsub("MA$|M$|N$|E$", "", df$variable)
+  out <- tidyr::pivot_wider(df, names_from = "type", values_from = "value", values_fill = 0)
+  return(out)
+}
+
 drop_failed_calls <- function(list){
   responses <- sapply(list, function(x) httr::status_code(x), USE.NAMES = FALSE)
   throw_out <- which(responses != "200")

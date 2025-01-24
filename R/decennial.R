@@ -60,6 +60,12 @@ census_vars <- function(year = 2020, dataset = "dec/dhc"){
   df <- jsonlite::fromJSON(url) %>%
     as.data.frame() |>
     row_to_colheaders()
+  
+  if(substr(dataset,1,3) %in% c("acs","dec")){
+    df <- df[grepl("[[:digit:]][[:alpha:]]$", df$name),]
+    df$name <- gsub("[[:alpha:]]$", "", df$name)
+  }
+  
   return(df)
 }
 
@@ -93,6 +99,8 @@ census_datasets <- function(year){
 #'
 #' @return Data.frame with population data from decennial census.
 #' @export
+#' @importFrom tidyr pivot_wider
+#' @importFrom tidyr pivot_longer
 get_population <- function(year = 2020, geography, geo_id, var, key, partial = FALSE, fips, state = "06", dataset = "dec/dhc"){
   
   if(missing(geo_id) && geography %in% c("county","school district")){
@@ -115,6 +123,8 @@ get_population <- function(year = 2020, geography, geo_id, var, key, partial = F
   if(geography == "school district" & !missing(geo_id)){
     original <- original[grepl(geo_id, original$NAME, ignore.case = TRUE),]
   }
+  
+  original <- pivot_census(original)
   
   return(original)
 }

@@ -11,7 +11,7 @@ get_population(
   var,
   key,
   partial = FALSE,
-  fips,
+  county,
   state = "06",
   dataset = "dec/dhc"
 )
@@ -29,7 +29,7 @@ get_population(
 
 \item{partial}{Logical, only applicable to zip codes.}
 
-\item{fips}{Character, length of 3.}
+\item{county}{Character, length of 3.}
 
 \item{state}{Character, length of 2.}
 

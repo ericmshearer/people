@@ -129,7 +129,7 @@ return_as_df <- function(list){
   return(out)
 }
 
-build_url <- function(year = 2020, geography, geo_id, var, key, partial = FALSE, fips, state, dataset){
+build_url <- function(year = 2020, geography, geo_id, var, key, partial = FALSE, county, state, dataset){
   # if(year == 2020){
   #   base <- paste("https://api.census.gov/data", as.character(year), api, dataset, sep = "/")
   # } else if (year == 2010){
@@ -145,11 +145,11 @@ build_url <- function(year = 2020, geography, geo_id, var, key, partial = FALSE,
   geography <- trimws(tolower(geography))
   
   if(geography %in% c("tract","census tract","ctract")){
-    url <- sprintf("%s?get=%s&for=tract:%s&in=state:%s&in=county:%s&key=%s", base, vars_to_get, geo_id, state, fips, key)
+    url <- sprintf("%s?get=%s&for=tract:%s&in=state:%s&in=county:%s&key=%s", base, vars_to_get, geo_id, state, county, key)
   }
   
   if(geography %in% c("zip code","zip","zips","zcta") & partial){
-    url <- sprintf("%s?get=%s&for=county (or part):%s&in=state:%s zip code tabulation area (or part):%s&key=%s", base, vars_to_get, fips, state, geo_id, key)
+    url <- sprintf("%s?get=%s&for=county (or part):%s&in=state:%s zip code tabulation area (or part):%s&key=%s", base, vars_to_get, county, state, geo_id, key)
   } else if (geography %in% c("zip code","zip","zips","zcta") && partial == FALSE) {
     url <- sprintf("%s?get=%s&for=zip code tabulation area:%s&key=%s", base, vars_to_get, geo_id, key)
   }
@@ -159,7 +159,7 @@ build_url <- function(year = 2020, geography, geo_id, var, key, partial = FALSE,
   }
   
   if(geography == "county"){
-    url <- sprintf("%s?get=%s&for=county:%s&in=state:%s&key=%s", base, vars_to_get, fips, state, key)
+    url <- sprintf("%s?get=%s&for=county:%s&in=state:%s&key=%s", base, vars_to_get, county, state, key)
   }
   
   if(geography == "school district"){

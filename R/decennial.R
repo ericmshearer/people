@@ -63,7 +63,6 @@ census_vars <- function(year = 2020, dataset = "dec/dhc"){
   
   if(substr(dataset,1,3) %in% c("acs","dec")){
     df <- df[grepl("[[:digit:]][[:alpha:]]$", df$name),]
-    df$name <- gsub("[[:alpha:]]$", "", df$name)
   }
   
   return(df)
@@ -93,7 +92,7 @@ census_datasets <- function(year){
 #' @param var Character, individual variable or group.
 #' @param key Character, census api token.
 #' @param partial Logical, only applicable to zip codes.
-#' @param fips Character, length of 3.
+#' @param county Character, length of 3.
 #' @param state Character, length of 2.
 #' @param dataset Character, api/table.
 #'
@@ -101,7 +100,7 @@ census_datasets <- function(year){
 #' @export
 #' @importFrom tidyr pivot_wider
 #' @importFrom tidyr pivot_longer
-get_population <- function(year = 2020, geography, geo_id, var, key, partial = FALSE, fips, state = "06", dataset = "dec/dhc"){
+get_population <- function(year = 2020, geography, geo_id, var, key, partial = FALSE, county, state = "06", dataset = "dec/dhc"){
   
   if(missing(geo_id) && geography %in% c("county","school district")){
     geo_id <- "*"
@@ -109,7 +108,7 @@ get_population <- function(year = 2020, geography, geo_id, var, key, partial = F
   
   cli::cli_alert("Preparing to fetch Census data...")
   
-  urls <- sapply(geo_id, function(x) {build_url(year = year, geography = geography, geo_id = x, var = var, partial = partial, fips = fips, state = state, key = key, dataset = dataset)}, USE.NAMES = FALSE)
+  urls <- sapply(geo_id, function(x) {build_url(year = year, geography = geography, geo_id = x, var = var, partial = partial, county = county, state = state, key = key, dataset = dataset)}, USE.NAMES = FALSE)
   
   urls <- sapply(urls, function(x) gsub("\\s", "%20", x), USE.NAMES = FALSE)
   
@@ -125,6 +124,14 @@ get_population <- function(year = 2020, geography, geo_id, var, key, partial = F
   }
   
   original <- pivot_census(original)
+  
+  if(substr(dataset,1,3) == "acs"){
+    original$variable <- sprintf("%sE", original$variable)
+  }
+  
+  if(substr(dataset,1,3) == "dec"){
+    original$variable <- sprintf("%sN", original$variable)
+  }
   
   return(original)
 }

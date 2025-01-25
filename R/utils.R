@@ -17,6 +17,13 @@ vars_pivot <- function(df){
   search <- grepl("[[:digit:]][[:alpha:]]$|[[:digit:]][[:alpha:]][[:alpha:]]$", colnames(df))
   position <- which(search, colnames(df))
   out <- colnames(df)[position]
+  
+  if(length(out) == 0){
+    search <- grepl("^[[:alpha:]][[:digit:]]|[[:digit:]][[:digit:]]$", colnames(df))
+    position <- which(search, colnames(df))
+    out <- colnames(df)[position]
+  }
+  return(out)
 }
 
 estimate_type <- function(x){
@@ -25,6 +32,11 @@ estimate_type <- function(x){
   old <- c("e","n","m","a")
   new <- c("estimate","estimate","moe","moe_adjust")
   out <- new[match(type, old)]
+  
+  if(is.null(out) == 0){
+    out <- "estimate"
+  }
+  
   return(out)
 }
 

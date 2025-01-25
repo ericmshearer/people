@@ -61,9 +61,9 @@ census_vars <- function(year = 2020, dataset = "dec/dhc"){
     as.data.frame() |>
     row_to_colheaders()
   
-  if(substr(dataset,1,3) %in% c("acs","dec")){
-    df <- df[grepl("[[:digit:]][[:alpha:]]$", df$name),]
-  }
+  # if(substr(dataset,1,3) %in% c("acs","dec")){
+  #   df <- df[grepl("[[:digit:]][[:alpha:]]$", df$name),]
+  # }
   
   return(df)
 }
@@ -124,12 +124,12 @@ get_population <- function(year = 2020, geography, geo_id, var, key, partial = F
   }
   
   original <- pivot_census(original)
-  
+
   if(substr(dataset,1,3) == "acs"){
     original$variable <- sprintf("%sE", original$variable)
   }
-  
-  if(substr(dataset,1,3) == "dec"){
+
+  if(substr(dataset,1,3) == "dec" & year == 2020){
     original$variable <- sprintf("%sN", original$variable)
   }
   

@@ -13,6 +13,12 @@
 #' @return The result of calling `rhs(lhs)`
 NULL
 
+call_api <- function(url){
+  update <- sprintf("Pulling data for geo_id: %s", extract_geoid(url))
+  print(update)
+  return(httr::GET(url))
+}
+
 vars_pivot <- function(df){
   search <- grepl("[[:digit:]][[:alpha:]]$|[[:digit:]][[:alpha:]][[:alpha:]]$", colnames(df))
   position <- which(search, colnames(df))
@@ -33,7 +39,7 @@ estimate_type <- function(x){
   new <- c("estimate","estimate","moe","moe_adjust")
   out <- new[match(type, old)]
   
-  if(is.null(out) == 0){
+  if(is.null(out)){
     out <- "estimate"
   }
   
@@ -162,8 +168,10 @@ build_url <- function(year = 2020, geography, geo_id, var, key, partial = FALSE,
   
   if(geography %in% c("zip code","zip","zips","zcta") & partial){
     url <- sprintf("%s?get=%s&for=county (or part):%s&in=state:%s zip code tabulation area (or part):%s&key=%s", base, vars_to_get, county, state, geo_id, key)
-  } else if (geography %in% c("zip code","zip","zips","zcta") && partial == FALSE) {
+  } else if (geography %in% c("zip code","zip","zips","zcta") && !partial && year >= 2020) {
     url <- sprintf("%s?get=%s&for=zip code tabulation area:%s&key=%s", base, vars_to_get, geo_id, key)
+  } else if(geography %in% c("zip code","zip","zips","zcta") && !partial && year < 2020){
+    url <- sprintf("%s?get=%s&for=zip code tabulation area:%s&in=state:%s&key=%s", base, vars_to_get, geo_id, state, key)
   }
   
   if(geography %in% c("city","cities","place","places")){

@@ -61,6 +61,8 @@ census_vars <- function(year = 2020, dataset = "dec/dhc"){
     as.data.frame() |>
     row_to_colheaders()
   
+  df$label <- trimws(df$label)
+  
   # if(substr(dataset,1,3) %in% c("acs","dec")){
   #   df <- df[grepl("[[:digit:]][[:alpha:]]$", df$name),]
   # }
@@ -100,6 +102,7 @@ census_datasets <- function(year){
 #' @export
 #' @importFrom tidyr pivot_wider
 #' @importFrom tidyr pivot_longer
+#' @importFrom httr GET
 get_population <- function(year = 2020, geography, geo_id, var, key, partial = FALSE, county, state = "06", dataset = "dec/dhc"){
   
   if(missing(geo_id) && geography %in% c("county","school district")){
@@ -112,7 +115,7 @@ get_population <- function(year = 2020, geography, geo_id, var, key, partial = F
   
   urls <- sapply(urls, function(x) gsub("\\s", "%20", x), USE.NAMES = FALSE)
   
-  original <- lapply(urls, httr::GET) %>%
+  original <- lapply(urls, call_api) %>%
     drop_failed_calls() %>%
     lapply(json_to_df, dups = TRUE) %>%
     lapply(recode_annotations) %>%
@@ -125,6 +128,8 @@ get_population <- function(year = 2020, geography, geo_id, var, key, partial = F
   
   original <- pivot_census(original)
 
+  original <- original[, colSums(original != 0) > 0]
+
   if(substr(dataset,1,3) == "acs"){
     original$variable <- sprintf("%sE", original$variable)
   }
@@ -132,7 +137,7 @@ get_population <- function(year = 2020, geography, geo_id, var, key, partial = F
   if(substr(dataset,1,3) == "dec" & year == 2020){
     original$variable <- sprintf("%sN", original$variable)
   }
-  
+
   return(original)
 }
 

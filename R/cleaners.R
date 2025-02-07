@@ -7,8 +7,8 @@
 parse_label <- function(x){
   x <- gsub("^Estimate!!Total:!!", "", x)
   x <- gsub("^Estimate!!", "", x)
-  x <- gsub("^!!Total:!!", "", x)
-  x <- gsub("\\:$|^!!", "", x)
+  x <- gsub("^ !!Total:!!", "", x)
+  x <- gsub("\\:$|^ !!", "", x)
   return(x)
 }
 
@@ -19,5 +19,5 @@ parse_label <- function(x){
 #' @return Character, removed suffixes.
 #' @export
 parse_place <- function(x){
-  gsub("\\scity\\,\\s\\w+|\\sCDP\\,\\s\\w+|\\stown\\,\\s\\w+", "", x)
+  gsub("\\scity.*|\\sCDP.*|\\stown.*|\\svillage.*|\\sborough.*|\\smunicipality.*", "", x)
 }

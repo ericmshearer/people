@@ -7,12 +7,15 @@
 #' @importFrom utils read.delim
 #' @export
 get_places <- function(county = "Orange", state = "CA"){
-  profile <- people::get_profile(county, state)
+  ppp <- get_profile(county, state)
   
   state <- tolower(state)
   
-  codes <- read.delim(sprintf("https://www2.census.gov/geo/docs/reference/codes2020/place/st%s_%s_place2020.txt", profile$STATEFP, state), sep = "|", colClasses = "character")
+  codes <- read.delim(sprintf("https://www2.census.gov/geo/docs/reference/codes2020/place/st%s_%s_place2020.txt", ppp$STATEFP, state), sep = "|", colClasses = "character")
   codes <- codes[codes$COUNTIES == paste(county, "County"),]
+  
+  stopifnot("Warning: no place codes found." = nrow(codes) > 1)
+  
   codes <- codes[["PLACEFP"]]
   return(codes)
 }
@@ -61,8 +64,6 @@ census_vars <- function(year = 2020, dataset = "dec/dhc"){
     as.data.frame() |>
     row_to_colheaders()
   
-  df$label <- trimws(df$label)
-  
   # if(substr(dataset,1,3) %in% c("acs","dec")){
   #   df <- df[grepl("[[:digit:]][[:alpha:]]$", df$name),]
   # }
@@ -102,6 +103,8 @@ census_datasets <- function(year){
 #' @export
 #' @importFrom tidyr pivot_wider
 #' @importFrom tidyr pivot_longer
+#' @importFrom cli cli_alert_warning
+#' @importFrom purrr discard_at
 #' @importFrom httr GET
 get_population <- function(year = 2020, geography, geo_id, var, key, partial = FALSE, county, state = "06", dataset = "dec/dhc"){
   
@@ -137,6 +140,9 @@ get_population <- function(year = 2020, geography, geo_id, var, key, partial = F
   if(substr(dataset,1,3) == "dec" & year == 2020){
     original$variable <- sprintf("%sN", original$variable)
   }
+  
+  original$source <- dataset
+  original$year <- year
 
   return(original)
 }

@@ -67,15 +67,14 @@ rrr <- lapply(years,
                   county = profile$COUNTYFP,
                   state = profile$STATEFP,
                   dataset = "acs/acs5"
-                  ) |>
-                  mutate(year = x)
+                  )
                 }
-              )
+              ) |>
+  dplyr::bind_rows()
 ```
 
 ```{r county-pop-years-print, echo=FALSE}
 rrr |>
-  dplyr::bind_rows() |>
   tt(theme = "striped") |>
   tt_apollo()
 ```
@@ -85,6 +84,8 @@ rrr |>
 Dataset: American Community Survey 5-Year
 
 ```{r county-pop-gender-age, message=FALSE, warning=FALSE}
+vars <- census_vars(year = 2019, dataset = "acs/acs5")
+
 county_gender_age <- get_population(
   year = 2019,
   geography = "county",
@@ -94,6 +95,8 @@ county_gender_age <- get_population(
   state = profile$STATEFP,
   dataset = "acs/acs5"
   )
+
+county_gender_age <- left_join(county_gender_age, vars, by = c("variable"="name"))
 ```
 
 ```{r county-pop-gender-age-print, echo=FALSE}
@@ -107,11 +110,11 @@ county_gender_age |>
 
 Dataset: American Community Survey 5-Year
 
-```{r zip-pop, message=FALSE, warning=FALSE}
+```{r zip-pop}
 zip_pop <- get_population(
   year = 2015,
   geography = "zip code",
-  geo_id = "92706",
+  geo_id = 92701:92708,
   var = "B01003_001E",
   key = key_get("census_key"),
   county = profile$COUNTYFP,

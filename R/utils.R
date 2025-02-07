@@ -62,18 +62,36 @@ drop_failed_calls <- function(list){
   if(length(throw_out) == 0){
     NULL
   } else {
-    bad <- list[[throw_out]]
-    bad_geo <- extract_geoid(bad$url)
+    bad <- list[throw_out]
+    # bad_geo <- extract_geoid(bad$url)
+    bad_geo <- sapply(bad, function(x) {extract_geoid(x$url)}, USE.NAMES = FALSE, simplify = TRUE)
+    bad_geo <- paste0(bad_geo, collapse = ", ")
+    cli::cli_alert_warning("Data not found for the following geo_id(s): {bad_geo}.")
+    # print(sprintf("Extraction failed for the following geo_id(s): %s", bad_geo))
     # bad_geo <- extract_geoid(bad_geo, start = ":", end = ".")
-    cli::cli_alert_danger("Dropping API calls for {bad_geo}. Invalid geo_id.")
-    list <- list[-throw_out]
+    # cli::cli_alert_danger("Dropping API calls for {bad_geo}. Invalid geo_id.")
+    # list <- list[-throw_out]
+    list <- purrr::discard_at(list, throw_out)
   }
   return(list)
 }
 
 extract_geoid <- function(url){
-  pass1 <- gsub(".*for\\=(.*)\\&.*", "\\1", url)
-  out <- gsub(".*\\:(.*)\\.*", "\\1", pass1)
+  
+  partial <- grepl("zipcodetabulationarea\\(orpart\\)", url)
+  
+  if(!partial){
+    pass1 <- gsub("\\%20*", "\\1", url)
+    out <- sub(".*&for\\=\\w+:(\\d+).*", "\\1", pass1)
+  } else {
+    out <- sub(".*orpart)\\:(\\d+).*", "\\1", url)
+  }
+  
+  # pass1 <- gsub("\\%20*", "\\1", url)
+  # out <- sub(".*&for\\=\\w+:(\\d+).*", "\\1", pass1)
+  # pass1 <- gsub(".*for\\=(.+)\\&in.*", "\\1", url)
+  # pass2 <- gsub(".*\\:(.*)\\.*", "\\1", pass1)
+  # out <- gsub("(.+)\\&key.*", "\\1", pass2)
   return(out)
 }
 

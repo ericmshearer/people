@@ -10,7 +10,8 @@ Imports:
     httr,
     magrittr,
     cli,
-    tidyr
+    tidyr,
+    purrr
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

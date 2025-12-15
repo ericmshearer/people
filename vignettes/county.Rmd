@@ -1,8 +1,8 @@
 ---
-title: "American Community Survey"
+title: "County"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{acs}
+  %\VignetteIndexEntry{county}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -26,17 +26,19 @@ tt_apollo <- function(tt) {
 }
 
 profile <- get_profile(county = "Orange", state = "CA")
+
+vars <- census_vars(year = 2023, dataset = "acs/acs5")
 ```
 
 
-Here are some examples of how to use `people` to extract potentially useful population denominators.
+The following examples use the American Community Survey 5-Year for county level population estimates.
 
-### LHJ Total Population
+### Total County Population
 
-Dataset: American Community Survey 5-Year
+Single year:
 
-```{r county-pop, message=FALSE, warning=FALSE}
-county_pop <- get_population(
+```{r county-pop-year, message=FALSE, warning=FALSE, include=FALSE}
+ppp <- get_population(
   year = 2023,
   geography = "county",
   var = "B01003_001E",
@@ -47,12 +49,7 @@ county_pop <- get_population(
   )
 ```
 
-```{r county-pop-print, echo=FALSE}
-tt(county_pop) |>
-  tt_apollo()
-```
-
-To pull multiple years at once:
+Multiple years:
 
 ```{r county-pop-years, message=FALSE, warning=FALSE}
 years <- 2013:2023
@@ -71,23 +68,17 @@ rrr <- lapply(years,
                 }
               ) |>
   dplyr::bind_rows()
-```
 
-```{r county-pop-years-print, echo=FALSE}
 rrr |>
   tt(theme = "striped") |>
   tt_apollo()
 ```
 
-### LHJ Population by Gender and Age Group
+### Gender and Age Group
 
-Dataset: American Community Survey 5-Year
-
-```{r county-pop-gender-age, message=FALSE, warning=FALSE}
-vars <- census_vars(year = 2019, dataset = "acs/acs5")
-
-county_gender_age <- get_population(
-  year = 2019,
+```{r county-gender-age, message=FALSE, warning=FALSE}
+ccc <- get_population(
+  year = 2023,
   geography = "county",
   var = "group(B01001)",
   key = key_get("census_key"),
@@ -96,34 +87,12 @@ county_gender_age <- get_population(
   dataset = "acs/acs5"
   )
 
-county_gender_age <- left_join(county_gender_age, vars, by = c("variable"="name"))
-```
+ccc <- left_join(ccc, vars, by = c("variable"="name"))
 
-```{r county-pop-gender-age-print, echo=FALSE}
-county_gender_age |>
-  head(10) |>
+ccc |>
   tt(theme = "striped") |>
   tt_apollo()
 ```
 
-### Total Zip Code Population
+### Race/Ethnicity
 
-Dataset: American Community Survey 5-Year
-
-```{r zip-pop}
-zip_pop <- get_population(
-  year = 2015,
-  geography = "zip code",
-  geo_id = 92701:92708,
-  var = "B01003_001E",
-  key = key_get("census_key"),
-  county = profile$COUNTYFP,
-  state = profile$STATEFP,
-  dataset = "acs/acs5"
-  )
-```
-
-```{r zip-pop-print, echo=FALSE}
-tt(zip_pop) |>
-  tt_apollo()
-```

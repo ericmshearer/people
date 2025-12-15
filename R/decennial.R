@@ -80,10 +80,11 @@ census_vars <- function(year = 2020, dataset = "dec/dhc"){
 census_datasets <- function(year){
   df <- jsonlite::fromJSON(sprintf("https://api.census.gov/data/%s/", year)) %>%
     as.data.frame()
+  df$dataset.c_dataset <- sapply(df$dataset.c_dataset, paste0, collapse = "/")
+  df <- df[order(df$dataset.c_dataset), ]
   options <- sort(sapply(df$dataset.c_dataset, paste0, collapse = "/"))
-  df <- df[,c("dataset.title","dataset.description")]
-  df <- cbind(df, options)
-  colnames(df) <- c("Title","Description","dataset")
+  df <- df[,c("dataset.c_dataset","dataset.title","dataset.description")]
+  colnames(df) <- c("Dataset","Title","Description")
   return(df)
 }
 

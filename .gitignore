@@ -8,3 +8,5 @@ dev.R
 .Rdata
 .httr-oauth
 .quarto
+/doc/
+/Meta/

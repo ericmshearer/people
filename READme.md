@@ -2,6 +2,7 @@ people
 ================
 
 ![](https://img.shields.io/badge/lifecycle-experimental-brightgreen.svg)
+[![R-CMD-check](https://github.com/ericmshearer/people/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ericmshearer/people/actions/workflows/R-CMD-check.yaml)
 
 This experimental package will extract common population datasets from
 the Decennial Census (Demographic and Housing Characteristics File) as
@@ -94,39 +95,39 @@ cen_datasets <- census_datasets(year = 2023)
 head(cen_datasets, 10)
 ```
 
-    ##                                                              Title
-    ## 1                         Current Population Survey: Basic Monthly
-    ## 2                         Current Population Survey: Basic Monthly
-    ## 3                         Current Population Survey: Basic Monthly
-    ## 4                         Current Population Survey: Basic Monthly
-    ## 5                         Current Population Survey: Basic Monthly
-    ## 6                         Current Population Survey: Basic Monthly
-    ## 7  Current Population Survey Annual Social and Economic Supplement
-    ## 8                         Current Population Survey: Basic Monthly
-    ## 9                         Current Population Survey: Basic Monthly
-    ## 10                        Current Population Survey: Basic Monthly
-    ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              Description
-    ## 1                                                                                                                                                                                                To provide estimates of employment, unemployment, and other characteristics of the general labor force, of the population as a whole, and of various subgroups of the population. Monthly labor force data for the country are used by the  Bureau of Labor Statistics (BLS) to determine the distribution of funds under the Job Training Partnership Act. These data are collected through combined computer-assisted personal interviewing (CAPI) and computer-assisted telephone interviewing (CATI). In addition to the labor force data, the CPS basic funding provides annual data on work experience, income, health insurance, and migration data from the Annual Social and Economic Supplement (ASEC), and on school enrollment of the population from the October Supplement. Other supplements, some of which are sponsored by other agencies, are conducted biennially or intermittently.
-    ## 2                                                                                                                                                                                                To provide estimates of employment, unemployment, and other characteristics of the general labor force, of the population as a whole, and of various subgroups of the population. Monthly labor force data for the country are used by the  Bureau of Labor Statistics (BLS) to determine the distribution of funds under the Job Training Partnership Act. These data are collected through combined computer-assisted personal interviewing (CAPI) and computer-assisted telephone interviewing (CATI). In addition to the labor force data, the CPS basic funding provides annual data on work experience, income, health insurance, and migration data from the Annual Social and Economic Supplement (ASEC), and on school enrollment of the population from the October Supplement. Other supplements, some of which are sponsored by other agencies, are conducted biennially or intermittently.
-    ## 3                                                                                                                                                                                                To provide estimates of employment, unemployment, and other characteristics of the general labor force, of the population as a whole, and of various subgroups of the population. Monthly labor force data for the country are used by the  Bureau of Labor Statistics (BLS) to determine the distribution of funds under the Job Training Partnership Act. These data are collected through combined computer-assisted personal interviewing (CAPI) and computer-assisted telephone interviewing (CATI). In addition to the labor force data, the CPS basic funding provides annual data on work experience, income, health insurance, and migration data from the Annual Social and Economic Supplement (ASEC), and on school enrollment of the population from the October Supplement. Other supplements, some of which are sponsored by other agencies, are conducted biennially or intermittently.
-    ## 4                                                                                                                                                                                                To provide estimates of employment, unemployment, and other characteristics of the general labor force, of the population as a whole, and of various subgroups of the population. Monthly labor force data for the country are used by the  Bureau of Labor Statistics (BLS) to determine the distribution of funds under the Job Training Partnership Act. These data are collected through combined computer-assisted personal interviewing (CAPI) and computer-assisted telephone interviewing (CATI). In addition to the labor force data, the CPS basic funding provides annual data on work experience, income, health insurance, and migration data from the Annual Social and Economic Supplement (ASEC), and on school enrollment of the population from the October Supplement. Other supplements, some of which are sponsored by other agencies, are conducted biennially or intermittently.
-    ## 5                                                                                                                                                                                                To provide estimates of employment, unemployment, and other characteristics of the general labor force, of the population as a whole, and of various subgroups of the population. Monthly labor force data for the country are used by the  Bureau of Labor Statistics (BLS) to determine the distribution of funds under the Job Training Partnership Act. These data are collected through combined computer-assisted personal interviewing (CAPI) and computer-assisted telephone interviewing (CATI). In addition to the labor force data, the CPS basic funding provides annual data on work experience, income, health insurance, and migration data from the Annual Social and Economic Supplement (ASEC), and on school enrollment of the population from the October Supplement. Other supplements, some of which are sponsored by other agencies, are conducted biennially or intermittently.
-    ## 6                                                                                                                                                                                                To provide estimates of employment, unemployment, and other characteristics of the general labor force, of the population as a whole, and of various subgroups of the population. Monthly labor force data for the country are used by the  Bureau of Labor Statistics (BLS) to determine the distribution of funds under the Job Training Partnership Act. These data are collected through combined computer-assisted personal interviewing (CAPI) and computer-assisted telephone interviewing (CATI). In addition to the labor force data, the CPS basic funding provides annual data on work experience, income, health insurance, and migration data from the Annual Social and Economic Supplement (ASEC), and on school enrollment of the population from the October Supplement. Other supplements, some of which are sponsored by other agencies, are conducted biennially or intermittently.
-    ## 7  The Annual Social and Economic Supplement or March CPS supplement is the primary source of detailed information on income and work experience in the United States. Numerous publications based on this survey are issued each year by the Bureaus of Labor Statistics and Census. A public-use microdata file is available for private researchers, who also produce many academic and policy-related documents based on these data. The Annual Social and Economic Supplement is used to generate the annual Population Profile of the United States, reports on geographical mobility and educational attainment, and detailed analysis of money income and poverty status. The labor force and work experience data from this survey are used to profile the U.S. labor market and to make employment projections. To allow for the same type of in-depth analysis of hispanics, additional hispanic sample units are added to the basic CPS sample in March each year. Additional weighting is also performed so that estimates can be made for households and families, in addition to persons.
-    ## 8                                                                                                                                                                                                To provide estimates of employment, unemployment, and other characteristics of the general labor force, of the population as a whole, and of various subgroups of the population. Monthly labor force data for the country are used by the  Bureau of Labor Statistics (BLS) to determine the distribution of funds under the Job Training Partnership Act. These data are collected through combined computer-assisted personal interviewing (CAPI) and computer-assisted telephone interviewing (CATI). In addition to the labor force data, the CPS basic funding provides annual data on work experience, income, health insurance, and migration data from the Annual Social and Economic Supplement (ASEC), and on school enrollment of the population from the October Supplement. Other supplements, some of which are sponsored by other agencies, are conducted biennially or intermittently.
-    ## 9                                                                                                                                                                                                To provide estimates of employment, unemployment, and other characteristics of the general labor force, of the population as a whole, and of various subgroups of the population. Monthly labor force data for the country are used by the  Bureau of Labor Statistics (BLS) to determine the distribution of funds under the Job Training Partnership Act. These data are collected through combined computer-assisted personal interviewing (CAPI) and computer-assisted telephone interviewing (CATI). In addition to the labor force data, the CPS basic funding provides annual data on work experience, income, health insurance, and migration data from the Annual Social and Economic Supplement (ASEC), and on school enrollment of the population from the October Supplement. Other supplements, some of which are sponsored by other agencies, are conducted biennially or intermittently.
-    ## 10                                                                                                                                                                                               To provide estimates of employment, unemployment, and other characteristics of the general labor force, of the population as a whole, and of various subgroups of the population. Monthly labor force data for the country are used by the  Bureau of Labor Statistics (BLS) to determine the distribution of funds under the Job Training Partnership Act. These data are collected through combined computer-assisted personal interviewing (CAPI) and computer-assisted telephone interviewing (CATI). In addition to the labor force data, the CPS basic funding provides annual data on work experience, income, health insurance, and migration data from the Annual Social and Economic Supplement (ASEC), and on school enrollment of the population from the October Supplement. Other supplements, some of which are sponsored by other agencies, are conducted biennially or intermittently.
-    ##                        dataset
-    ## 1                     acs/acs1
-    ## 2            acs/acs1/cprofile
-    ## 3             acs/acs1/profile
-    ## 4                acs/acs1/pums
-    ## 5              acs/acs1/pumspr
-    ## 6  acs/acs1/sdataprofile/cd119
-    ## 7                 acs/acs1/spp
-    ## 8             acs/acs1/subject
-    ## 9                     acs/acs5
-    ## 10           acs/acs5/cprofile
+    ##              Dataset
+    ## 46             abscb
+    ## 47            abscbo
+    ## 48             abscs
+    ## 49            absmcb
+    ## 50           absnesd
+    ## 51          absnesdo
+    ## 18          acs/acs1
+    ## 20 acs/acs1/cprofile
+    ## 19  acs/acs1/profile
+    ## 26     acs/acs1/pums
+    ##                                                                                                     Title
+    ## 46                                             2023 Annual Business Survey: Characteristics of Businesses
+    ## 47                                        2023 Annual Business Survey: Characteristics of Business Owners
+    ## 48                                                           2023 Annual Business Survey: Company Summary
+    ## 49                                      2023 Annual Business Survey: Module Characteristics of Businesses
+    ## 50                            2023 Nonemployer Statistics by Demographics Series (NES-D): Company Summary
+    ## 51 2023 Nonemployer Statistics by Demographics Series (NES-D): Owner Characteristics of Nonemployer Firms
+    ## 18                                                                             ACS 1-Year Detailed Tables
+    ## 20                                                                         ACS 1-Year Comparison Profiles
+    ## 19                                                                               ACS 1-Year Data Profiles
+    ## 26                         2023 American Community Survey: 1-Year Estimates - Public Use Microdata Sample
+    ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Description
+    ## 46                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               The Annual Business Survey (ABS) provides information on selected economic and demographic characteristics for businesses and business owners by sex, ethnicity, race, and veteran status. Further, the survey measures research and development (for microbusinesses), new business topics such as innovation and technology, as well as other business characteristics. The U.S. Census Bureau and the National Center conduct the ABS jointly for Science and Engineering Statistics within the National Science Foundation. The ABS replaces the five-year Survey of Business Owners (SBO) for employer businesses, the Annual Survey of Entrepreneurs (ASE), the Business R&D and Innovation for Microbusinesses survey (BRDI-M), and the innovation section of the Business R&D and Innovation Survey (BRDI-S). https://www.census.gov/programs-surveys/abs.html
+    ## 47                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               The Annual Business Survey (ABS) provides information on selected economic and demographic characteristics for businesses and business owners by sex, ethnicity, race, and veteran status. Further, the survey measures research and development (for microbusinesses), new business topics such as innovation and technology, as well as other business characteristics. The U.S. Census Bureau and the National Center conduct the ABS jointly for Science and Engineering Statistics within the National Science Foundation. The ABS replaces the five-year Survey of Business Owners (SBO) for employer businesses, the Annual Survey of Entrepreneurs (ASE), the Business R&D and Innovation for Microbusinesses survey (BRDI-M), and the innovation section of the Business R&D and Innovation Survey (BRDI-S). https://www.census.gov/programs-surveys/abs.html
+    ## 48                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               The Annual Business Survey (ABS) provides information on selected economic and demographic characteristics for businesses and business owners by sex, ethnicity, race, and veteran status. Further, the survey measures research and development (for microbusinesses), new business topics such as innovation and technology, as well as other business characteristics. The U.S. Census Bureau and the National Center conduct the ABS jointly for Science and Engineering Statistics within the National Science Foundation. The ABS replaces the five-year Survey of Business Owners (SBO) for employer businesses, the Annual Survey of Entrepreneurs (ASE), the Business R&D and Innovation for Microbusinesses survey (BRDI-M), and the innovation section of the Business R&D and Innovation Survey (BRDI-S). https://www.census.gov/programs-surveys/abs.html
+    ## 49                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               The Annual Business Survey (ABS) provides information on selected economic and demographic characteristics for businesses and business owners by sex, ethnicity, race, and veteran status. Further, the survey measures research and development (for microbusinesses), new business topics such as innovation and technology, as well as other business characteristics. The U.S. Census Bureau and the National Center conduct the ABS jointly for Science and Engineering Statistics within the National Science Foundation. The ABS replaces the five-year Survey of Business Owners (SBO) for employer businesses, the Annual Survey of Entrepreneurs (ASE), the Business R&D and Innovation for Microbusinesses survey (BRDI-M), and the innovation section of the Business R&D and Innovation Survey (BRDI-S). https://www.census.gov/programs-surveys/abs.html
+    ## 50                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              The Nonemployer Statistics by Demographics (NES-D): Company Summary estimates provide economic data classified by sex, ethnicity, race, and veteran status of nonemployer firms. The NES-D is not a survey; rather, it leverages existing administrative records to assign demographic characteristics to the universe of nonemployer businesses. The nonemployer universe is comprised of businesses with no paid employment or payroll, annual receipts of $1,000 or more ($1 or more in the construction industries), and filing IRS tax forms for sole proprietorships (Form 1040, Schedule C), partnerships (Form 1065), or corporations (the Form 1120 series). Data for all firms are also presented. These estimates are produced by combining estimates for nonemployer firms from the Nonemployer Statistics by Demographics (NESD) and employer firms from the Annual Business Survey (ABS).
+    ## 51                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   The Nonemployer Statistics by Demographics (NES-D): Characteristics of Business Owners estimates provide information on selected economic and demographic characteristics of business owners tabulated by sex, ethnicity, race, and veteran status of an owner. Included in the universe are nonemployer businesses with no paid employment or payroll, annual receipts of $1,000 or more ($1 or more in the construction industries) and filing IRS tax forms for sole proprietorships (Form 1040, Schedule C), partnerships (Form 1065), or corporations (the Form 1120 series).
+    ## 18                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                The American Community Survey (ACS) is an ongoing survey that provides data every year -- giving communities the current information they need to plan investments and services. The ACS covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population. Much of the ACS data provided on the Census Bureau's Web site are available separately by age group, race, Hispanic origin, and sex. Summary files, Subject tables, Data profiles, and Comparison profiles are available for the nation, all 50 states, the District of Columbia, Puerto Rico, every congressional district, every metropolitan area, and all counties and places with populations of 65,000 or more. Detailed Tables contain the most detailed cross-tabulations published for areas 65k and more. The data are population counts. There are over 31,000 variables in this dataset.
+    ## 20                                                                                                                                                                                                                                                                                                                                                                                                                                  The American Community Survey (ACS) is an ongoing survey that provides data every year -- giving communities the current information they need to plan investments and services. The ACS covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population. Much of the ACS data provided on the Census Bureau's Web site are available separately by age group, race, Hispanic origin, and sex. Summary files, Subject tables, Data profiles, and Comparison profiles are available for the nation, all 50 states, the District of Columbia, Puerto Rico, every congressional district, every metropolitan area, and all counties and places with populations of 65,000 or more. Comparison profiles are similar to Data profiles but also include comparisons with past-year data. The current year data are compared with each of the last four years of data and include statistical significance testing. There are over 1,000 variables in this dataset.
+    ## 19 The American Community Survey (ACS) is a US-wide survey designed to provide communities a fresh look at how they are changing. The ACS replaced the decennial census long form in 2010 and thereafter by collecting long form type information throughout the decade rather than only once every 10 years. Questionnaires are mailed to a sample of addresses to obtain information about households -- that is, about each person and the housing unit itself. The American Community Survey produces demographic, social, housing and economic estimates in the form of 1 and 5-year estimates based on population thresholds. The strength of the ACS is in estimating population and housing characteristics. The data profiles provide key estimates for each of the topic areas covered by the ACS for the us, all 50 states, the District of Columbia, Puerto Rico, every congressional district, every metropolitan area, and all counties and places with populations of 65,000 or more. Although the ACS produces population, demographic and housing unit estimates, it is the Census Bureau's Population Estimates Program that produces and disseminates the official estimates of the population for the US, states, counties, cities and towns, and estimates of housing units for states and counties. For 2010 and other decennial census years, the Decennial Census provides the official counts of population and housing units.
+    ## 26                                                                                                                                                                                                                                                                                                                        The American Community Survey (ACS) Public Use Microdata Sample (PUMS) contains a sample of responses to the ACS. The ACS PUMS dataset includes variables for nearly every question on the survey, as well as many new variables that were derived after the fact from multiple survey responses (such as poverty status). Each record in the file represents a single person, or, in the household-level dataset, a single housing unit. In the person-level file, individuals are organized into households, making possible the study of people within the contexts of their families and other household members. Individuals living in Group Quarters, such as nursing facilities or college facilities, are also included on the person file. ACS PUMS data are available at the nation, state, and Public Use Microdata Area (PUMA) levels. PUMAs are special non-overlapping areas that partition each state into contiguous geographic units containing roughly 100,000 people each. ACS PUMS files for an individual year, such as 2022, contain data on approximately one percent of the United States population.
 
 ``` r
 cen_vars <- census_vars(year = 2023, dataset = "acs/acs1")
@@ -184,26 +185,28 @@ ttt <- get_population(
 )
 ```
 
-    ## # A tibble: 17 × 7
-    ##    NAME                              GEO_ID state county tract variable estimate
-    ##    <chr>                             <chr>  <chr> <chr>  <chr> <chr>       <int>
-    ##  1 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_001N      3291
-    ##  2 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_002N      2530
-    ##  3 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_003N      1862
-    ##  4 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_004N        42
-    ##  5 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_005N         1
-    ##  6 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_006N       471
-    ##  7 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_007N         4
-    ##  8 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_008N         7
-    ##  9 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_009N       143
-    ## 10 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_010N       761
-    ## 11 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_011N       159
-    ## 12 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_012N         0
-    ## 13 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_013N        13
-    ## 14 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_014N        13
-    ## 15 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_015N         0
-    ## 16 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_016N       188
-    ## 17 Census Tract 117.18; Orange Coun… 14000… 06    059    0117… P5_017N       388
+    ## [1] "Pulling data for geo_id: 011718"
+
+    ## # A tibble: 17 × 9
+    ##    NAME                 GEO_ID state county tract variable estimate source  year
+    ##    <chr>                <chr>  <chr> <chr>  <chr> <chr>       <int> <chr>  <dbl>
+    ##  1 Census Tract 117.18… 14000… 06    059    0117… P5_001N      3291 dec/d…  2020
+    ##  2 Census Tract 117.18… 14000… 06    059    0117… P5_002N      2530 dec/d…  2020
+    ##  3 Census Tract 117.18… 14000… 06    059    0117… P5_003N      1862 dec/d…  2020
+    ##  4 Census Tract 117.18… 14000… 06    059    0117… P5_004N        42 dec/d…  2020
+    ##  5 Census Tract 117.18… 14000… 06    059    0117… P5_005N         1 dec/d…  2020
+    ##  6 Census Tract 117.18… 14000… 06    059    0117… P5_006N       471 dec/d…  2020
+    ##  7 Census Tract 117.18… 14000… 06    059    0117… P5_007N         4 dec/d…  2020
+    ##  8 Census Tract 117.18… 14000… 06    059    0117… P5_008N         7 dec/d…  2020
+    ##  9 Census Tract 117.18… 14000… 06    059    0117… P5_009N       143 dec/d…  2020
+    ## 10 Census Tract 117.18… 14000… 06    059    0117… P5_010N       761 dec/d…  2020
+    ## 11 Census Tract 117.18… 14000… 06    059    0117… P5_011N       159 dec/d…  2020
+    ## 12 Census Tract 117.18… 14000… 06    059    0117… P5_012N         0 dec/d…  2020
+    ## 13 Census Tract 117.18… 14000… 06    059    0117… P5_013N        13 dec/d…  2020
+    ## 14 Census Tract 117.18… 14000… 06    059    0117… P5_014N        13 dec/d…  2020
+    ## 15 Census Tract 117.18… 14000… 06    059    0117… P5_015N         0 dec/d…  2020
+    ## 16 Census Tract 117.18… 14000… 06    059    0117… P5_016N       188 dec/d…  2020
+    ## 17 Census Tract 117.18… 14000… 06    059    0117… P5_017N       388 dec/d…  2020
 
 ``` r
 # Total population at four zip codes
@@ -220,13 +223,18 @@ xxx <- get_population(
   )
 ```
 
-    ## # A tibble: 3 × 6
-    ##   NAME         state zip code tabulation …¹ `county (or part)` variable estimate
-    ##   <chr>        <chr> <chr>                  <chr>              <chr>       <int>
-    ## 1 Orange Coun… 06    92870                  059                P1_001N     52749
-    ## 2 Orange Coun… 06    92886                  059                P1_001N     50001
-    ## 3 Orange Coun… 06    90630                  059                P1_001N     49771
+    ## [1] "Pulling data for geo_id: https://api.census.gov/data/2020/dec/dhc?get=P1_001N,NAME&for=county(orpart):059&in=state:06zipcodetabulationarea(orpart):92870&key=5787bcec1d4b4483a857642911bad64057bc3e94"
+    ## [1] "Pulling data for geo_id: https://api.census.gov/data/2020/dec/dhc?get=P1_001N,NAME&for=county(orpart):059&in=state:06zipcodetabulationarea(orpart):92886&key=5787bcec1d4b4483a857642911bad64057bc3e94"
+    ## [1] "Pulling data for geo_id: https://api.census.gov/data/2020/dec/dhc?get=P1_001N,NAME&for=county(orpart):059&in=state:06zipcodetabulationarea(orpart):90630&key=5787bcec1d4b4483a857642911bad64057bc3e94"
+
+    ## # A tibble: 3 × 8
+    ##   NAME  state zip code tabulation …¹ `county (or part)` variable estimate source
+    ##   <chr> <chr> <chr>                  <chr>              <chr>       <int> <chr> 
+    ## 1 Oran… 06    92870                  059                P1_001N     52749 dec/d…
+    ## 2 Oran… 06    92886                  059                P1_001N     50001 dec/d…
+    ## 3 Oran… 06    90630                  059                P1_001N     49771 dec/d…
     ## # ℹ abbreviated name: ¹​`zip code tabulation area (or part)`
+    ## # ℹ 1 more variable: year <dbl>
 
 ### 2010 Decennial Census
 
@@ -243,24 +251,28 @@ lll <- get_population(
   county = "081",
   dataset = "dec/sf1"
   )
+```
 
+    ## [1] "Pulling data for geo_id: 081"
+
+``` r
 lll <- merge(lll, vars, by.x = "variable", by.y = "name")
 ```
 
-    ##    variable                         NAME         GEO_ID state county estimate
-    ## 1 PCT012001 San Mateo County, California 0500000US06081    06    081   718451
-    ## 2 PCT012002 San Mateo County, California 0500000US06081    06    081   353168
-    ## 3 PCT012003 San Mateo County, California 0500000US06081    06    081     4746
-    ## 4 PCT012004 San Mateo County, California 0500000US06081    06    081     4673
-    ## 5 PCT012005 San Mateo County, California 0500000US06081    06    081     4786
-    ## 6 PCT012006 San Mateo County, California 0500000US06081    06    081     4743
-    ##                       label    concept
-    ## 1                     Total SEX BY AGE
-    ## 2               Total!!Male SEX BY AGE
-    ## 3 Total!!Male!!Under 1 year SEX BY AGE
-    ## 4       Total!!Male!!1 year SEX BY AGE
-    ## 5      Total!!Male!!2 years SEX BY AGE
-    ## 6      Total!!Male!!3 years SEX BY AGE
+    ##    variable                         NAME         GEO_ID state county     NA
+    ## 1 PCT012001 San Mateo County, California 0500000US06081    06    081 718451
+    ## 2 PCT012002 San Mateo County, California 0500000US06081    06    081 353168
+    ## 3 PCT012003 San Mateo County, California 0500000US06081    06    081   4746
+    ## 4 PCT012004 San Mateo County, California 0500000US06081    06    081   4673
+    ## 5 PCT012005 San Mateo County, California 0500000US06081    06    081   4786
+    ## 6 PCT012006 San Mateo County, California 0500000US06081    06    081   4743
+    ##    source year                     label    concept
+    ## 1 dec/sf1 2010                     Total SEX BY AGE
+    ## 2 dec/sf1 2010               Total!!Male SEX BY AGE
+    ## 3 dec/sf1 2010 Total!!Male!!Under 1 year SEX BY AGE
+    ## 4 dec/sf1 2010       Total!!Male!!1 year SEX BY AGE
+    ## 5 dec/sf1 2010      Total!!Male!!2 years SEX BY AGE
+    ## 6 dec/sf1 2010      Total!!Male!!3 years SEX BY AGE
 
 **Resources:**
 

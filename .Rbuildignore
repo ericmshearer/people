@@ -10,3 +10,5 @@
 ^codecov\.yml$
 ^dev\.R$
 ^NEWS\.md$
+^doc$
+^Meta$

@@ -14,16 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, message=FALSE, warning=FALSE}
+```{r setup, message=FALSE, warning=FALSE, eval=FALSE}
 library(dplyr)
 library(people)
 library(keyring)
 library(tinytable)
-
-tt_apollo <- function(tt) {
-  tt |>
-    style_tt(i = 0, color = "white", background = "#231f20")
-}
 
 profile <- get_profile(county = "Orange", state = "CA")
 
@@ -37,7 +32,7 @@ The following examples use the American Community Survey 5-Year for county level
 
 Single year:
 
-```{r county-pop-year, message=FALSE, warning=FALSE, include=FALSE}
+```{r county-pop-year, message=FALSE, warning=FALSE, include=FALSE, eval=FALSE}
 ppp <- get_population(
   year = 2023,
   geography = "county",
@@ -51,7 +46,7 @@ ppp <- get_population(
 
 Multiple years:
 
-```{r county-pop-years, message=FALSE, warning=FALSE}
+```{r county-pop-years, message=FALSE, warning=FALSE, eval=FALSE}
 years <- 2013:2023
 
 rrr <- lapply(years,
@@ -68,15 +63,11 @@ rrr <- lapply(years,
                 }
               ) |>
   dplyr::bind_rows()
-
-rrr |>
-  tt(theme = "striped") |>
-  tt_apollo()
 ```
 
 ### Gender and Age Group
 
-```{r county-gender-age, message=FALSE, warning=FALSE}
+```{r county-gender-age, message=FALSE, warning=FALSE, eval=FALSE}
 ccc <- get_population(
   year = 2023,
   geography = "county",
@@ -88,10 +79,6 @@ ccc <- get_population(
   )
 
 ccc <- left_join(ccc, vars, by = c("variable"="name"))
-
-ccc |>
-  tt(theme = "striped") |>
-  tt_apollo()
 ```
 
 ### Race/Ethnicity
